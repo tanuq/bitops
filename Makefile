@@ -15,7 +15,8 @@ CFLAGS += -Iinclude
 #CFLAGS += --pedantic
 #CFLAGS += -S -save-temps
 CXXFLAGS += $(CFLAGS) 
-LDFLAGS = -lstdc++ -g 
+LDFLAGS = -g
+LDLIBS = -lstdc++
 
 .PHONY: all clean memcheck nosanitize
 
@@ -33,6 +34,8 @@ clean:
 	$(RM) $(OBJS) $(TARGET) $(DEPS) 
 
 $(TARGET) : $(OBJS)
-	$(LINK.cc) -o $@ $^
+	$(LINK.cc) $^ $(LDLIBS) -o $@
+
+
 	
 -include $(DEPS)
